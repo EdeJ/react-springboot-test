@@ -1,0 +1,81 @@
+body{
+  font-size: 12px;
+  margin: 20px;
+}
+
+.client-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.client-list {
+list-style-type: none;
+border-radius: 5px;
+border: 1px solid #aaa;
+padding: 20px;
+margin-right: 20px;
+}
+.client-list button {
+  margin-top: 20px;
+  margin-right: 20px;
+}
+.app input {
+  margin-right: 10px;
+}
+
+.add-client, .update-client {
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  padding: 20px;
+}
+
+.add-client {
+  background-color: rgb(231, 250, 232);
+}
+
+.update-client {
+  background-color: rgb(250, 242, 231);
+}
+
+.update-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.update-client {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.update-client button:last-child {
+  margin-top: 30px;
+}
+
+input {
+padding: 8px;
+border-radius: 5px;
+border: 1px solid #bbb;
+}
+
+button {
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+}
+button.close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background-color: rgb(211, 74, 74);
+}
+
+

@@ -8,70 +8,83 @@ function App() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [clientNr, setClientNr] = useState('');
-  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-        const result = await axios.get(`http://localhost:8080/clients`);
-        console.log(result.data);
-        setClients(result.data);
-        setRefresh(false);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchData();
-  }, [refresh])
+    getAllClients();
+  }, [])
 
-  async function postClient(newClient) {
+  async function getAllClients() {
     try {
-      const result = await axios.post(`http://localhost:8080/clients`,
-        newClient
-      );
-      console.log(result);
-      setRefresh(true);
+      const result = await axios.get(`http://localhost:8080/clients`);
+      setClients(result.data);
     } catch (error) {
       console.error(error);
     }
   }
 
-  const createClient = (evt) => {
+  async function addClient(evt) {
     evt.preventDefault();
-    console.log(firstName);
-    const newClient = {
-      firstName,
-      lastName,
-      clientNr
+    try {
+      const result = await axios.post(`http://localhost:8080/clients`,
+        {
+          firstName,  // <- dit is hetzelfde als    firstName: firstName
+          lastName,
+          clientNr
+        });
+      console.log(result);
+      getAllClients();
+    } catch (error) {
+      console.error(error);
     }
-    postClient(newClient);
   }
 
+  async function deleteClient(id) {
+    try {
+      const result = await axios.delete(`http://localhost:8080/clients/${id}`);
+      console.log(result);
+      getAllClients();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
-    <div className="App">
-      <h2>Alle klanten</h2>
-      {clients && clients.map((client) => (
-        <ul key={client.id}>
-          <li>id: {client.id}</li>
-          <li>Voornaam: {client.firstName}</li>
-          <li>Achternaam: {client.lastName}</li>
-          <li>Klantnummer: {client.clientNr}</li>
-        </ul>
-      ))
+    <div className="app">
+      {clients &&
+        <div>
+          <h2>Alle klanten</h2>
+          <div className="client-container">
+            {clients && clients.map((client, index) => (
+              <ul key={client.id} className="client-list">
+                <li>id: {client.id}</li>
+                <li>Voornaam: {client.firstName}</li>
+                <li>Achternaam: {client.lastName}</li>
+                <li>Klantnummer: {client.clientNr}</li>
+                <li>
+                  <button
+                    onClick={() => deleteClient(client.id)}
+                    type="submit"
+                  >
+                    verwijder klant
+                      </button>
+                </li>
+              </ul>
+            ))
+            }
+          </div>
+          <form onSubmit={(evt) => addClient(evt)} className="add-client">
+            <label>Vooraam: </label>
+            <input type="text" onChange={(e) => setFirstName(e.target.value)} value={firstName} />
+            <label>Achternaam: </label>
+            <input type="text" onChange={(e) => setLastName(e.target.value)} value={lastName} />
+            <label>Klantnummer: </label>
+            <input type="text" onChange={(e) => setClientNr(e.target.value)} value={clientNr} />
+            <button type="submit">klant toevoegen</button>
+          </form>
+        </div>
       }
-      <form onSubmit={(evt) => createClient(evt)}>
-        <label>Vooraam: </label>
-        <input type="text" onChange={(e) => setFirstName(e.target.value)} value={firstName} />
-        <label>Achternaam: </label>
-        <input type="text" onChange={(e) => setLastName(e.target.value)} value={lastName} />
-        <label>Klantnummer: </label>
-        <input type="text" onChange={(e) => setClientNr(e.target.value)} value={clientNr} />
-        <button type="submit">klant toevoegen</button>
-      </form>
     </div>
-  );
+  )
 }
 
 export default App;
