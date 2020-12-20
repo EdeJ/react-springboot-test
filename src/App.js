@@ -58,7 +58,7 @@ function App() {
 
   return (
     <div className="app">
-      {(clients && !updateId) ? (
+      {!updateId ? (
         <div>
           <h2>Alle klanten</h2>
           <div className="client-container">
@@ -76,13 +76,11 @@ function App() {
           <DatabaseView clients={clients} />
         </div>
       ) : (
-          updateId && (
-            <UpdateClient
-              client={clients[clients.findIndex(client => client.id === updateId)]}
-              updateClient={updateClient}
-              setUpdateId={setUpdateId}
-            />
-          )
+          <UpdateClient
+            client={clients[clients.findIndex(client => client.id === updateId)]}
+            updateClient={updateClient}
+            setUpdateId={setUpdateId}
+          />
         )
       }
     </div>
