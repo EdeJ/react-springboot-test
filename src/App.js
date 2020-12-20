@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import './App.css';
 import AddClientForm from './components/AddClientForm';
 import DatabaseView from './components/DatabaseView';
 import Client from './components/Client';
 import UpdateClient from './components/UpdateClient';
+
+import './App.css';
 
 function App() {
 
