@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import AddClientForm from './components/AddClientForm';
 import DatabaseView from './components/DatabaseView';
+import Client from './components/Client';
 
 function App() {
 
@@ -48,21 +49,12 @@ function App() {
         <div>
           <h2>Alle klanten</h2>
           <div className="client-container">
-            {clients && clients.map((client, index) => (
-              <ul key={client.id} className="client-list">
-                <li>id: {client.id}</li>
-                <li>Voornaam: {client.firstName}</li>
-                <li>Achternaam: {client.lastName}</li>
-                <li>Klantnummer: {client.clientNr}</li>
-                <li>
-                  <button
-                    onClick={() => deleteClient(client.id)}
-                    type="submit"
-                  >
-                    verwijder klant
-                      </button>
-                </li>
-              </ul>
+            {clients && clients.map((client) => (
+              <Client
+                key={client.id}
+                client={client}
+                deleteClient={deleteClient}
+              />
             ))
             }
           </div>

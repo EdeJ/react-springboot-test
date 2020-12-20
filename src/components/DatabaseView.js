@@ -4,7 +4,7 @@ function DatabaseView({ clients }) {
 
     return (
         <>
-            <h2>Je database ziet er nu zo uit:</h2>
+            <h3>Je database ziet er nu zo uit:</h3>
             <p>SELECT * FROM CLIENTS;</p>
             <table>
                 <thead>
