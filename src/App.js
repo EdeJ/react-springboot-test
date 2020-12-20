@@ -3,11 +3,13 @@ import axios from 'axios';
 import './App.css';
 import AddClientForm from './components/AddClientForm';
 import DatabaseView from './components/DatabaseView';
+import Client from './components/Client';
+import UpdateClient from './components/UpdateClient';
 
 function App() {
 
-  const [clients, setClients] = useState(null);
-
+  const [clients, setClients] = useState([]);
+  const [updateId, setUpdateId] = useState(null);
 
   useEffect(() => {
     getAllClients();
@@ -42,33 +44,46 @@ function App() {
     }
   }
 
+  async function updateClient(client) {
+    try {
+      const result = await axios.put(`http://localhost:8080/clients/${client.id}`, client);
+      console.log(result);
+      setUpdateId(null);
+      getAllClients();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className="app">
-      {clients &&
+      {(clients && !updateId) ? (
         <div>
           <h2>Alle klanten</h2>
           <div className="client-container">
             {clients && clients.map((client, index) => (
-              <ul key={client.id} className="client-list">
-                <li>id: {client.id}</li>
-                <li>Voornaam: {client.firstName}</li>
-                <li>Achternaam: {client.lastName}</li>
-                <li>Klantnummer: {client.clientNr}</li>
-                <li>
-                  <button
-                    onClick={() => deleteClient(client.id)}
-                    type="submit"
-                  >
-                    verwijder klant
-                      </button>
-                </li>
-              </ul>
+              <Client
+                key={client.id}
+                client={client}
+                deleteClient={deleteClient}
+                setUpdateId={setUpdateId}
+                index={index}
+              />
             ))
             }
           </div>
           <AddClientForm addClient={addClient} />
           <DatabaseView clients={clients} />
         </div>
+      ) : (
+          updateId && (
+            <UpdateClient
+              client={clients[clients.findIndex(x => x.id === updateId)]}
+              updateClient={updateClient}
+              setUpdateId={setUpdateId}
+            />
+          )
+        )
       }
     </div>
   )
