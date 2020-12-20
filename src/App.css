@@ -78,4 +78,12 @@ button.close {
   background-color: rgb(211, 74, 74);
 }
 
+table, th, td {
+  border: 1px solid#bbb;
+  padding: 5px;;
+}
+table th {
+  background-color: #f4f0e0;
+}
+
 

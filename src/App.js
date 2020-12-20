@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
+import AddClientForm from './components/AddClientForm';
+import DatabaseView from './components/DatabaseView';
 
 function App() {
 
   const [clients, setClients] = useState(null);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [clientNr, setClientNr] = useState('');
+
 
   useEffect(() => {
     getAllClients();
@@ -22,15 +22,9 @@ function App() {
     }
   }
 
-  async function addClient(evt) {
-    evt.preventDefault();
+  async function addClient(client) {
     try {
-      const result = await axios.post(`http://localhost:8080/clients`,
-        {
-          firstName,  // <- dit is hetzelfde als    firstName: firstName
-          lastName,
-          clientNr
-        });
+      const result = await axios.post(`http://localhost:8080/clients`, client);
       console.log(result);
       getAllClients();
     } catch (error) {
@@ -72,15 +66,8 @@ function App() {
             ))
             }
           </div>
-          <form onSubmit={(evt) => addClient(evt)} className="add-client">
-            <label>Vooraam: </label>
-            <input type="text" onChange={(e) => setFirstName(e.target.value)} value={firstName} />
-            <label>Achternaam: </label>
-            <input type="text" onChange={(e) => setLastName(e.target.value)} value={lastName} />
-            <label>Klantnummer: </label>
-            <input type="text" onChange={(e) => setClientNr(e.target.value)} value={clientNr} />
-            <button type="submit">klant toevoegen</button>
-          </form>
+          <AddClientForm addClient={addClient} />
+          <DatabaseView clients={clients} />
         </div>
       }
     </div>
