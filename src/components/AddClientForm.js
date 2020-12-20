@@ -14,7 +14,9 @@ function AddClientForm({ addClient }) {
                 lastName,
                 clientNr
             })
-        }} className="add-client">
+        }}
+            className="add-client"
+        >
             <label>Vooraam: </label>
             <input type="text" onChange={(e) => setFirstName(e.target.value)} value={firstName} />
             <label>Achternaam: </label>

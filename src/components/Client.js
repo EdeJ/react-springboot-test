@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Client({ client, deleteClient }) {
+function Client({ client, deleteClient, setUpdateId }) {
     return (
         <ul key={client.id}
             className="client-list"
@@ -11,6 +11,14 @@ function Client({ client, deleteClient }) {
             <li>Klantnummer: {client.clientNr}</li>
             <li>
                 <button
+                    className="update"
+                    onClick={() => setUpdateId(client.id)}
+                    type="submit"
+                >
+                    update klant
+              </button>
+                <button
+                    className="delete"
                     onClick={() => deleteClient(client.id)}
                     type="submit"
                 >

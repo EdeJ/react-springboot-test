@@ -25,6 +25,10 @@ margin-right: 20px;
   margin-right: 10px;
 }
 
+input:read-only {
+  background-color: #eee;
+}
+
 .add-client, .update-client {
   border-radius: 5px;
   border: 1px solid #aaa;
@@ -35,10 +39,6 @@ margin-right: 20px;
   background-color: rgb(231, 250, 232);
 }
 
-.update-client {
-  background-color: rgb(250, 242, 231);
-}
-
 .update-container {
   display: flex;
   justify-content: center;
@@ -46,10 +46,15 @@ margin-right: 20px;
 }
 
 .update-client {
+  background-color: rgb(250, 242, 231);
   position: relative;
   display: flex;
   flex-direction: column;
   width: 300px;
+  padding-top: 20px;
+}
+.update-client input {
+  margin-bottom: 10px;
 }
 
 .update-client button:last-child {
@@ -71,6 +76,11 @@ button {
   padding: 10px 20px;
   font-weight: bold;
 }
+
+button.delete {
+  background-color: indianred;
+}
+
 button.close {
   position: absolute;
   right: 20px;
